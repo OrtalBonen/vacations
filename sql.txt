@@ -1,0 +1,63 @@
+CREATE DATABASE vacations;
+USE vacations;
+
+CREATE TABLE users(
+id int auto_increment,
+email varchar(100) unique,
+firstName varchar(50),
+lastName varchar(50),
+password varchar(10),
+isAdmin boolean default 0,
+primary key(id)
+);
+
+-- insert users
+INSERT INTO users(email,firstName,lastName, password)
+VALUES("jo@gmail.com", "Jo","Cherner","123456"),
+("omer_gilad@gmail.com", "Omer","Gilad","17f8fgf8"),
+("shira@gmail.com", "Shira","Gilad","12345678"),
+("talMatityahu@gmail.com", "Tal","Matityahu","1435h4j8j"),
+("gary@gmail.com", "Gary","Gorodetzki","23g345ghg"),
+("anna.patrick@gmail.com", "Anna","Patrik","12vf6j89"),
+("shani-gabay@gmail.com", "Shany","Gabay","98akhg"),
+("lian.beni@gmail.com", "Neta","Polani","123456ty"),
+("edengoren@gmail.com", "Eden","Goren","1lkjlu");
+
+-- insert isAdmin
+INSERT INTO users(email,firstName,lastName, password,isAdmin)
+VALUES("ortal@gmail.com", "Ortal","Bonen","123456",1);
+
+
+CREATE TABLE vacations(
+id int auto_increment,
+destination varchar(50),
+description varchar(250),
+img_src varchar(600),
+start date,
+end date, 
+price numeric(5,0),
+primary key(id)
+);
+
+INSERT INTO vacations(destination,description,img_src,start, end, price)
+VALUES("Paris", "Get loved-up in Paris, the most romantic destination","https://arabscircle-feed.s3.eu-central-1.amazonaws.com/f8370a144432938dd90871dfe28905f8/eiffel-tower-in-paris-151-medium.jpg","2022-10-05","2022-10-08",10052),
+("London", "The cultural heart of England","https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTSsXJYnv4LmGyzOHcZg4jUUFeeJU_eppr2V1gB6_5wLmD0q4BHRRauwM0sIrkEnSO9Wbg&usqp=CAU","2022-03-12","2022-03-07",862),
+("Costa Rica", "Costa Rica offer you an unforgatable experience of unique wildelif, lush rainforests and fabulous beaches","https://www.barcelo.com/pinandtravel/wp-content/uploads/2017/04/shutterstock_452418868@2x.jpg","2022-06-07","2022-06-18",590),
+("Dubai", "Amazing shopping, beautiful beaches iconic sights and much more","https://media.tacdn.com/media/attractions-splice-spp-674x446/06/88/bf/ba.jpg","2022-08-06","2022-08-11",625),
+("Gran Canaria", "Gran canaria the perfect all year round choice of destination","https://www.seatemperatu.re/site/images/illustration/grande-canarie_980.jpg","2022-4-02","2022-04-10",756),
+("Thailand", "Everything you imagine, from bustling cities to amazing beaches and green mountains","https://idsb.tmgrup.com.tr/ly/uploads/images/2021/09/03/141856.jpg","2022-04-02","2022-04-20",3512);
+
+CREATE TABLE followvacations(
+id int auto_increment,
+ user_id int,
+ vacation_id int,
+ foreign key(user_id) references users(id),
+ foreign key(vacation_id) references vacations(id),
+ primary key(id)
+ );
+ 
+ INSERT INTO followvacations(user_id, vacation_id)
+ values(1,1),(1,2), (2,4), (2,1), (3,3), (3,4), (3,1), (3,6),
+ (4,3), (4,6), (4,2), (4,4), (5,1), (6,2),(6,5),(6,4),
+ (7,1), (7,4), (7,6), (9,4)
+ 
